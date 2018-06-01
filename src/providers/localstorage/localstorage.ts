@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {QuizzResults} from "../../models/quizzResults";
-import {HttpParams} from "@angular/common/http";
 
 /*
   Generated class for the LocalstorageProvider provider.

@@ -11,6 +11,8 @@ import { QuizzProvider } from '../providers/quizz/quizz-provider';
 import { HttpClientModule } from "@angular/common/http";
 import { LocalstorageProvider } from '../providers/localstorage/localstorage';
 import { IonicStorageModule } from '@ionic/storage';
+import { Camera } from '@ionic-native/camera';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -30,8 +32,10 @@ import { IonicStorageModule } from '@ionic/storage';
     HomePage
   ],
   providers: [
+    Camera,
     StatusBar,
     SplashScreen,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     QuizzProvider,
     LocalstorageProvider

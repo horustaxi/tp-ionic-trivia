@@ -40,6 +40,9 @@
   </div>
 
   <div *ngIf="gameIsOver">
+    <button ion-button full (click)="shareSocial()">Partager votre score !</button>
+    <button ion-button full (click)="takePicture()">Faire un selfie !</button>
+    <img [src]="this.base64Image">
     <button ion-button full (click)="goBackToMainMenu()">Retour au menu principal</button>
   </div>
 </ion-content>

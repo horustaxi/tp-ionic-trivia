@@ -3,6 +3,8 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {QuizzProvider} from "../../providers/quizz/quizz-provider";
 import {Quizz} from "../../models/quizz";
 import {LocalstorageProvider} from "../../providers/localstorage/localstorage";
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import {SocialSharing} from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the QuizzPage page.
@@ -25,8 +27,15 @@ export class QuizzPage {
   public gameIsOver: boolean = false;
   public questionIsOver: boolean = false;
   public interval;
+  public base64Image;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public quizzProvider: QuizzProvider, public localstorageProvider: LocalstorageProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public quizzProvider: QuizzProvider,
+    public localstorageProvider: LocalstorageProvider,
+    private camera: Camera,
+    private socialSharing: SocialSharing) {
   }
 
   ionViewDidLoad() {
@@ -96,7 +105,39 @@ export class QuizzPage {
       this.localstorageProvider.setScore(result + 1, this.points);
       this.localstorageProvider.setCounter(result + 1);
     });
+  }
 
+  public takePicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      console.log(err)
+    });
+  }
+
+  public shareSocial() {
+    // Check if sharing via email is supported
+    this.socialSharing.canShareViaEmail().then(() => {
+      // Sharing via email is possible
+    }).catch(() => {
+      // Sharing via email is not possible
+    });
+
+    // Share via email
+    this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org']).then(() => {
+      // Success!
+    }).catch(() => {
+      // Error!
+    });
   }
 
   public goBackToMainMenu() {
