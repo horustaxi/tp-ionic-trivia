@@ -1,14 +1,39 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic Trivia Quizz
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-card>
+  <ion-list>
+    <div text-center class="error" *ngIf="error">
+      {{error}}
+    </div>
+    <ion-item>
+      <ion-label floating>Nombre de questions (entre 5 et 10)</ion-label>
+      <ion-input type="text" [(ngModel)]="nbQuestions"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Difficulté</ion-label>
+      <ion-select [(ngModel)]="difficulty">
+        <ion-option value="easy">Facile</ion-option>
+        <ion-option value="medium">Moyen</ion-option>
+        <ion-option value="hard">Difficile</ion-option>
+      </ion-select>
+    </ion-item>
+      <button ion-button full (click)="checkValues()">C'est parti !</button>
+  </ion-list>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>Derniers résultats:</ion-card-header>
+    <ion-card-content>
+      <p *ngFor="let score of scores">{{score}}</p>
+    </ion-card-content>
+    <button ion-button full (click)="displayScores()">Rafraîchir la liste</button>
+  </ion-card>
+
 </ion-content>
+

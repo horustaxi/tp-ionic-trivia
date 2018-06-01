@@ -1,0 +1,45 @@
+<!--
+  Generated template for the QuizzPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>quizz</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngIf="quizz">
+
+    <ion-card-header>Question :</ion-card-header>
+    <ion-card-content>
+      <div *ngIf="questionIsOver === false">Il reste {{ timer }} secondes !</div>
+      <div>{{quizz.question}}</div>
+      <div *ngFor="let answer of quizz.incorrect_answers">
+        <button ion-button full (click)="checkAnswer(answer)" [disabled]="questionIsOver">{{answer}}</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="result">
+    <ion-card-content>
+      <div text-center class="result">
+        {{result}}
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="questionIsOver">
+    <button ion-button full (click)="changeQuestion()">Question suivante !</button>
+  </div>
+
+  <div *ngIf="gameIsOver">
+    <button ion-button full (click)="goBackToMainMenu()">Retour au menu principal</button>
+  </div>
+</ion-content>
